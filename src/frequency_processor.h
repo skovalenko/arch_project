@@ -1,31 +1,29 @@
 #ifndef FREQUENCY_PROCESSOR_H
 #define FREQUENCY_PROCESSOR_H
-#include <queue>
 #include <map>
-
-struct symbol_stat
-{
-    char         symbol;
-    unsigned int number;
-
-    symbol_stat(const char c, const unsigned int n)
-        : symbol(c),
-          number(n)
-    {}
-
-    bool operator()(const symbol_stat& s)
-    {
-        return number < s.number;
-    }
-};
+#include <string>
 
 class frequency_processor
 {
 public:
-    typedef std::priority_queue <symbol_stat>   queue_t;
     typedef std::map <char, unsigned int>       frequency_table_t;
+    typedef frequency_table_t::value_type       value_type_t;
+    typedef frequency_table_t::iterator         iterator_t;
+    typedef frequency_table_t::const_iterator   const_iterator_t;
+    typedef std::pair <iterator_t, bool>        ret_t;
 
+private:
+    static const unsigned int DEFAULT_FREQUENCY_VALUE;
+    frequency_table_t __freq_table;
+
+    //read all buffer and fill frequency table
+    void __fill_frequency_table(const std::string& buffer);
+
+public:
     frequency_processor();
+
+    void process(const std::string& buffer);
+    const frequency_table_t get_table() const;
 };
 
 #endif // FREQUENCY_PROCESSOR_H

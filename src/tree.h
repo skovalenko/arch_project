@@ -14,11 +14,6 @@ struct tree_item_data
     }
 };
 
-struct data_comparator
-{
-    bool operator()(const tree_item_data& d1, const tree_item_data& d2);
-};
-
 template <class data>
 class tree_item
 {
@@ -52,6 +47,14 @@ public:
     {
         return __data;
     }
+};
+
+template <class item_t>
+class tree
+{
+private:
+public:
+    tree();
 };
 
 #endif

@@ -3,6 +3,8 @@
 #include <map>
 #include <string>
 
+// this class defines a number of occurrences of each symbol
+// and store them in the table - std::map
 class frequency_processor
 {
 public:

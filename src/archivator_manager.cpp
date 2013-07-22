@@ -21,15 +21,11 @@ bool archivator_manager::process_file(const std::string &file_name)
     //get table
     const frequency_table_t& table = __freq_processor.get_table();
 
-    priority_queue_t queue;
+    //create queue of tree items
+    priority_queue_t item_queue;
+    __create_queue(table, item_queue);
 
-    __create_queue(table, queue);
 
-    while (!queue.empty())
-    {
-        std::cout << queue.top()->get_data().number << std::endl;
-        queue.pop();
-    }
 
     return true;
 }
@@ -40,8 +36,6 @@ void archivator_manager::__create_queue(const frequency_table_t &table, priority
 
     for (const_frequency_iterator_t iter = table.begin(); iter != table.end(); ++iter)
     {
-        std::cout << "c= " << iter->first << "; n= " << iter->second << std::endl;
-        tree_item_ptr_t item = new tree_item_t(tree_item_data(iter->first, iter->second));
-        queue.push(item);
+        queue.push(new tree_item_t(tree_item_data(iter->first, iter->second)));
     }
 }

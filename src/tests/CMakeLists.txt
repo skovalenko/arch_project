@@ -5,11 +5,13 @@ set(PROJECT tests)
 project(${PROJECT})
 
 set(HEADERS
-    test_file.h)
+    test_file.h
+    test_freq_processor.h)
 
 set(SOURCES
     tests.cpp
-    ../file.cpp)
+    ../file.cpp
+    ../frequency_processor.cpp)
 
 add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 

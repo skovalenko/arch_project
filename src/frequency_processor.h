@@ -8,7 +8,7 @@
 class frequency_processor
 {
 public:
-    typedef std::map <char, unsigned int>       frequency_table_t;
+    typedef std::map <const char, unsigned int> frequency_table_t;
     typedef frequency_table_t::value_type       value_type_t;
     typedef frequency_table_t::iterator         iterator_t;
     typedef frequency_table_t::const_iterator   const_iterator_t;

@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "test_file.h"
+#include "test_freq_processor.h"
 
 int main(int argc, char** argv)
 {

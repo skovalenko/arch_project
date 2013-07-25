@@ -1,10 +1,15 @@
 #include "archivator_manager.h"
 #include "file.h"
 #include "assert.h"
-
 archivator_manager::archivator_manager()
+    : __haffman_tree(0)
 {
 
+}
+
+archivator_manager::~archivator_manager()
+{
+    delete __haffman_tree;
 }
 
 bool archivator_manager::process_file(const std::string &file_name)
@@ -25,7 +30,8 @@ bool archivator_manager::process_file(const std::string &file_name)
     priority_queue_t item_queue;
     __create_queue(table, item_queue);
 
-
+    //process queue and create haffman tree
+    __create_haffman_tree(item_queue);
 
     return true;
 }
@@ -38,4 +44,30 @@ void archivator_manager::__create_queue(const frequency_table_t &table, priority
     {
         queue.push(new tree_item_t(tree_item_data(iter->first, iter->second)));
     }
+}
+
+void archivator_manager::__create_haffman_tree(priority_queue_t &queue)
+{
+    assert(!queue.empty());
+
+    std::cout << "start" << std::endl;
+    while (queue.size() > 1)
+    {
+        std::cout << "size" << queue.size() << std::endl;
+        //get first two items of the queue
+        const tree_item_t* first = queue.top();
+        queue.pop();
+
+        const tree_item_t* second = queue.top();
+        queue.pop();
+
+        //create fake node
+        tree_item_t* node = new tree_item_t(tree_item_data());
+        node->set_left_child(first);
+        node->set_right_item(second);
+
+        queue.push(node);
+    }
+
+    __haffman_tree = new haffman_tree(binary_tree(queue.top()));
 }

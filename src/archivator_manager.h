@@ -4,6 +4,7 @@
 #include "tree.h"
 #include <queue>
 #include <vector>
+#include "haffman.h"
 
 // this class manages the process of archiving
 class archivator_manager
@@ -25,16 +26,20 @@ private:
         }
     };
 
-    typedef std::priority_queue <tree_item_ptr_t, vector_t, data_comparator > priority_queue_t;
+    typedef std::priority_queue <const tree_item_ptr_t, vector_t, data_comparator > priority_queue_t;
 
     frequency_processor __freq_processor;
+    haffman_tree*       __haffman_tree;
 
 
     //read "table" and fill queue
     void __create_queue(const frequency_table_t& table, priority_queue_t& queue) const;
 
+    void __create_haffman_tree(priority_queue_t& queue);
+
 public:
     archivator_manager();
+    ~archivator_manager();
 
     bool process_file(const std::string& file_name);
 };

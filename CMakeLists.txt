@@ -8,14 +8,15 @@ set(HEADERS
     src/file.h
     src/frequency_processor.h
     src/tree.h
-    src/archivator_manager.h)
+    src/archivator_manager.h
+    src/haffman.h)
 
 set(SOURCES
     src/main.cpp
     src/file.cpp
     src/frequency_processor.cpp
-    src/tree.cpp
-    src/archivator_manager.cpp)
+    src/archivator_manager.cpp
+    src/haffman.cpp)
 
 include_directories(src)
 

@@ -10,10 +10,10 @@ class haffman_tree;
 class haffman_tree
 {
 private:
-    const tree __core;
+    const binary_tree __core;
 
 public:
-    haffman_tree(const tree& bt);
+    haffman_tree(const binary_tree& bt);
 
     haffman_table convert_to_table() const;
 

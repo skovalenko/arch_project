@@ -30,12 +30,7 @@ private:
 
     frequency_processor __freq_processor;
     haffman_tree*       __haffman_tree;
-
-
-    //read "table" and fill queue
-    void __create_queue(const frequency_table_t& table, priority_queue_t& queue) const;
-
-    void __create_haffman_tree(priority_queue_t& queue);
+    haffman_table*
 
 public:
     archivator_manager();

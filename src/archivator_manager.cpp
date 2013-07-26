@@ -28,32 +28,15 @@ bool archivator_manager::process_file(const std::string &file_name)
 
     //create queue of tree items
     priority_queue_t item_queue;
-    __create_queue(table, item_queue);
-
-    //process queue and create haffman tree
-    __create_haffman_tree(item_queue);
-
-    return true;
-}
-
-void archivator_manager::__create_queue(const frequency_table_t &table, priority_queue_t& queue) const
-{
-    assert(queue.empty());
 
     for (const_frequency_iterator_t iter = table.begin(); iter != table.end(); ++iter)
     {
-        queue.push(new tree_item_t(tree_item_data(iter->first, iter->second)));
+        item_queue.push(new tree_item_t(tree_item_data(iter->first, iter->second)));
     }
-}
 
-void archivator_manager::__create_haffman_tree(priority_queue_t &queue)
-{
-    assert(!queue.empty());
-
-    std::cout << "start" << std::endl;
-    while (queue.size() > 1)
+    //process queue
+    while (queue.size() != 1)
     {
-        std::cout << "size" << queue.size() << std::endl;
         //get first two items of the queue
         const tree_item_t* first = queue.top();
         queue.pop();
@@ -69,5 +52,8 @@ void archivator_manager::__create_haffman_tree(priority_queue_t &queue)
         queue.push(node);
     }
 
+    //create haffman tree
     __haffman_tree = new haffman_tree(binary_tree(queue.top()));
+
+    return true;
 }

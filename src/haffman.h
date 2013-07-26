@@ -15,7 +15,7 @@ private:
 public:
     haffman_tree(const binary_tree& bt);
 
-    haffman_table convert_to_table() const;
+    haffman_table make_haffman_table() const;
 
 };
 

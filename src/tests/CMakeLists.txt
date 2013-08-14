@@ -13,6 +13,13 @@ set(SOURCES
     ../file.cpp
     ../frequency_processor.cpp)
 
+set(LIBRARIES
+    pthread
+    gtest)
+
+find_package(Qt4 REQUIRED)
+include(${QT_USE_FILE})
+
 add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 
-target_link_libraries(${PROJECT} pthread gtest)
+target_link_libraries(${PROJECT} ${LIBRARIES} ${QT_LIBRARIES})

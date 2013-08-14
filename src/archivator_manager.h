@@ -5,13 +5,14 @@
 #include <queue>
 #include <vector>
 #include "haffman.h"
+#include <Qt/qdebug.h>
+
 
 // this class manages the process of archiving
 class archivator_manager
 {
 private:
     typedef frequency_processor::frequency_table_t frequency_table_t;
-    typedef frequency_processor::iterator_t        frequency_iterator_t;
     typedef frequency_processor::const_iterator_t  const_frequency_iterator_t;
     typedef tree_item <tree_item_data>             tree_item_t;
     typedef tree_item_t*                           tree_item_ptr_t;
@@ -30,13 +31,20 @@ private:
 
     frequency_processor __freq_processor;
     haffman_tree*       __haffman_tree;
-    haffman_table*
+    haffman_table*      __haffman_table;
+
+    void __read_file(const std::string& file_name, std::string& buffer) const;
+    void __write_content(const std::string& file_name, const std::string& buffer) const;
+    bool __prepare_encoder(const std::string& file_content);
+    bool __encode(const std::string& buffer, std::string& out_content) const;
+
 
 public:
     archivator_manager();
     ~archivator_manager();
 
-    bool process_file(const std::string& file_name);
+    bool encode_file(const std::string& file_name, const std::string& file_out);
+    bool decode_file(const std::string& file_name, const std::string& file_out);
 };
 
 

@@ -8,13 +8,14 @@ class file_io_base
 {
 protected:
     typedef std::fstream stream_t;
-    stream_t __fd;
+    stream_t   __fd;
 
-    enum OPEN_TYPE {WRITER, READER} ;
+    enum OPEN_TYPE {WRITER, READER};
 
+    const bool __binary_mode;
 
 public:
-    file_io_base(const std::string& file_name, const OPEN_TYPE type);
+    file_io_base(const std::string& file_name, const OPEN_TYPE type, const bool bin_mode = false);
 
     virtual ~file_io_base() = 0;
 };
@@ -22,7 +23,7 @@ public:
 class file_reader : public file_io_base
 {
 public:
-    file_reader(const std::string& file_name);
+    file_reader(const std::string& file_name, const bool bin_mode = false);
 
     void read(std::string& buffer);
 };
@@ -30,7 +31,7 @@ public:
 class file_writer : public file_io_base
 {
 public:
-    file_writer(const std::string& file_name);
+    file_writer(const std::string& file_name, const bool bin_mode = false);
 
     void write(const std::string& buffer);
 };

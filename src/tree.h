@@ -2,21 +2,24 @@
 #define TREE_H
 #include <assert.h>
 #include <stack>
+#include <iostream>
 
 struct tree_item_data
 {
-    char          symbol;
-    unsigned int  number;
-    bool          fake;
+    const char          symbol;
+    const unsigned int  number;
+    const bool          fake;
 
-    tree_item_data(const char c, unsigned int n)
+    tree_item_data(const char c, const unsigned int n)
         : symbol(c),
           number(n),
           fake(false)
     {}
 
-    tree_item_data()
-        : fake(true)
+    tree_item_data(const unsigned int n)
+        : symbol(' '),
+          number(n),
+          fake(true)
     {}
 };
 
@@ -71,7 +74,7 @@ public:
         return __data;
     }
 };
-
+/*
 class binary_tree
 {
 private:
@@ -85,6 +88,7 @@ public:
 
     class iterator
     {
+    friend class binary_tree;
     private:
         typedef std::stack <const data_t*> stack_t;
         stack_t __st;
@@ -97,12 +101,14 @@ public:
 
         bool operator!=(const iterator& iter) const
         {
-            return (__st.top() == iter.__st.top());
+            assert(!__st.empty() && !iter.__st.empty());
+            return (__st.top() != iter.__st.top());
         }
 
         iterator& operator++()
         {
-            assert(__st.empty());
+
+            assert(!__st.empty());
 
             const data_t* tmp = __st.top();
             __st.pop();
@@ -112,18 +118,41 @@ public:
             return *this;
         }
 
-/*
-        const tree_item_data& operator*() const
-        {
-            return __st.top()->get_data();
-        }
+
+//        const tree_item_data& operator*() const
+//        {
+//            return __st.top()->get_data();
+//        }
 
         const data_t* operator->() const
         {
             return __st.top();
         }
-*/
-    };
-};
 
+    };
+
+    iterator begin() const
+    {
+        return iterator(__root);
+    }
+
+    iterator end() const
+    {
+        iterator iter(__root);
+
+        while (true)
+        {
+            if (iter.__st.size() == 1)
+            {
+                const data_t* d = iter.__st.top();
+                if (!d->get_left_child() && !d->get_right_child()) return iter;
+            }
+
+            ++iter;
+        }
+
+        return iter;
+    }
+};
+*/
 #endif

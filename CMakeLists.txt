@@ -20,6 +20,11 @@ set(SOURCES
 
 include_directories(src)
 
+find_package(Qt4 REQUIRED)
+include(${QT_USE_FILE})
+#add_definitions(-std=c++0x)
 add_executable(${PROJECT} ${HEADERS} ${SOURCES})
+
+target_link_libraries(${PROJECT} ${QT_LIBRARIES})
 
 add_subdirectory(src/tests)
